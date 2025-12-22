@@ -1,0 +1,9 @@
+Taxi:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      role: ACCOUNTADMIN
+      warehouse: TAXI
+      database: TAXI
+      schema: TAXI
