@@ -134,7 +134,7 @@ Data is ingested in **Parquet format** for performance and schema consistency.
 
 ## 🔄 Orchestration & Automation
 
-<img width="700" height="1000" alt="image" src="https://github.com/user-attachments/assets/7cd930ec-2d86-4028-a7a7-c3c9d6d8a3dd" />
+<img width="400" height="700" alt="image" src="https://github.com/user-attachments/assets/7cd930ec-2d86-4028-a7a7-c3c9d6d8a3dd" />
 
 
 - **Snowpipe** → Auto-ingestion
