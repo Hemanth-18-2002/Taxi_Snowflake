@@ -115,7 +115,8 @@ Data is ingested in **Parquet format** for performance and schema consistency.
 - **DIM_VENDOR**
 - **DIM_PAYMENT**
 - **DIM_LOCATION** *(SCD Type-2)*
-
+- **DIM_RATECODE**
+  
 ---
 
 ## 🔄 Slowly Changing Dimension (SCD-2)
