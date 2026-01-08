@@ -68,7 +68,7 @@ Data is ingested in **Parquet format** for performance and schema consistency.
 
 ## 🧱 Medallion Architecture
 
-<img width="700" height="516" alt="image" src="https://github.com/user-attachments/assets/9ae83ed4-27df-4c2c-a4dd-25ac47045561" />
+<img width="600" height="400" alt="image" src="https://github.com/user-attachments/assets/9ae83ed4-27df-4c2c-a4dd-25ac47045561" />
 
 ### 🥉 Bronze / RAW Layer
 - Stores raw taxi data as-is
