@@ -98,7 +98,8 @@ Data is ingested in **Parquet format** for performance and schema consistency.
 
 ## 📐 Data Model (Star Schema)
 
-![Star Schema](images/star_schema.png)
+<img width="700" height="500" alt="datamodel" src="https://github.com/user-attachments/assets/e634eabf-1aa6-4967-acfe-0f9febe5dfea" />
+
 
 ### ⭐ Fact Table
 **FACT_TAXI_TRIPS**
