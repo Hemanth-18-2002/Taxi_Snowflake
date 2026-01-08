@@ -1,0 +1,63 @@
+version: 2
+
+models:
+  - name: silver_taxi_trips
+    description: "Cleaned, deduplicated taxi trip data with filled nulls"
+
+    # 🔑 Model-level tests (DUPLICATES)
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - VendorID
+            - pickup_ts
+            - PULocationID
+
+    columns:
+
+      # 🚫 CRITICAL NULL CHECKS
+      - name: VendorID
+        tests:
+          - not_null
+
+      - name: pickup_ts
+        tests:
+          - not_null
+
+      - name: dropoff_ts
+        tests:
+          - not_null
+
+      - name: PULocationID
+        tests:
+          - not_null
+
+      - name: DOLocationID
+        tests:
+          - not_null
+
+      # 🔢 NUMERIC QUALITY CHECKS
+      - name: passenger_count
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: trip_distance
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: fare_amount
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: total_amount
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      # ⏱️ TIMESTAMP LOGIC
+      - name: dropoff_ts
+        tests:
+          - dbt_utils.expression_is_true:
+              expression: "dropoff_ts >= pickup_ts"
