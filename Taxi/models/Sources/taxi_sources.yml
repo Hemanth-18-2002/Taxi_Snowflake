@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: taxi_raw
+    database: TAXI
+    schema: RAW
+    tables:
+      - name: RAW_TAXI_TRIPS
