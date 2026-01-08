@@ -98,7 +98,7 @@ Data is ingested in **Parquet format** for performance and schema consistency.
 
 ## 📐 Data Model (Star Schema)
 
-<img width="700" height="500" alt="datamodel" src="https://github.com/user-attachments/assets/e634eabf-1aa6-4967-acfe-0f9febe5dfea" />
+<img width="765" height="506" alt="image" src="https://github.com/user-attachments/assets/5b9172d0-6fa5-4714-abf8-fb2a8cf20746" />
 
 
 ### ⭐ Fact Table
