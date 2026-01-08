@@ -1,289 +1,197 @@
-🚕 NYC Yellow Taxi Analytics Platform
-📊 End-to-End Data Engineering & Analytics Case Study
+# 🚕 NYC Yellow Taxi Analytics Platform
+### 📊 End-to-End Data Engineering & Analytics Case Study  
+**Snowflake | dbt | Streams & Tasks | Streamlit**
 
-Snowflake | dbt | Streams & Tasks | Streamlit
+---
 
-🌍 Project Overview
+## 🌍 Project Overview
 
-The NYC Yellow Taxi dataset captures millions of daily taxi trips across New York City, including pickup/drop-off times, locations, fares, tips, payment methods, and passenger details.
+The **NYC Yellow Taxi dataset** captures millions of taxi trips across New York City, including pickup/drop-off times, locations, fares, tips, passenger counts, and payment methods.
 
-This project builds a cloud-native, production-grade analytics platform to ingest, clean, transform, and analyze taxi trip data using Snowflake, dbt, and Streamlit.
-The final outcome is a fully automated data pipeline with interactive dashboards delivering operational and business insights.
+This project implements a **production-grade, cloud-native analytics platform** that ingests raw taxi data, cleans and transforms it using modern data engineering practices, and delivers **interactive dashboards** for business insights.
 
-🧩 Problem Statement
+The solution closely mirrors **real-world enterprise data platforms** used in analytics and reporting teams.
 
-Raw taxi data is large, messy, and arrives incrementally
+---
 
-Analytical queries on raw data are slow and unreliable
+## 🧩 Problem Statement
 
-Business users need clean metrics, historical accuracy, and interactive dashboards
+Raw taxi data is:
+- High-volume and continuously arriving
+- Messy and inconsistent
+- Not analytics-ready
 
-Goals
+### 🎯 Objectives
+- Build a scalable **medallion architecture**
+- Handle **incremental & late-arriving data**
+- Ensure **data quality and deduplication**
+- Implement **SCD Type-2 dimensions**
+- Deliver **interactive dashboards** for insights
 
-Build a scalable medallion architecture
+---
 
-Ensure data quality & deduplication
+## 🛠 Tech Stack
 
-Handle late-arriving data
+- ❄ **Snowflake**
+  - Snowpipe
+  - Streams & Tasks
+  - Time Travel
+- 🧱 **dbt (Core / Cloud)**
+  - Incremental models
+  - SCD Type-2
+  - Data quality tests
+- 🐍 **SQL & Snowpark**
+- 📊 **Streamlit**
+  - Snowflake Native Streamlit
+  - Streamlit Community Cloud
+- 📈 **Altair**
+- ☁ **Parquet-based ingestion**
 
-Implement SCD Type-2 dimensions
+---
 
-Deliver real-time-ready analytics dashboards
+## 📂 Dataset
 
-🛠 Tech Stack
+**NYC Yellow Taxi Trip Records**
 
-❄ Snowflake
+Includes:
+- Vendor information  
+- Pickup & drop-off timestamps  
+- Pickup & drop-off locations  
+- Trip distance  
+- Fare, tips & surcharges  
+- Passenger count  
+- Payment types  
 
-Snowpipe
+Data is ingested in **Parquet format** for performance and schema consistency.
 
-Streams & Tasks
+---
 
-Time Travel
+## 🧱 Medallion Architecture
 
-🧱 dbt (Core / Cloud)
+![Medallion Architecture](images/medallion_architecture.png)
 
-Incremental models
+### 🥉 Bronze / RAW Layer
+- Stores raw taxi data as-is
+- Loaded using **Snowpipe / COPY INTO**
+- Acts as the immutable source of truth
 
-SCD Type-2
+---
 
-Data quality tests
+### 🥈 Silver / CLEANED Layer
+- Built using **dbt incremental models**
+- Key transformations:
+  - Deduplication
+  - Timestamp parsing
+  - Null handling (forward & backward fill)
+  - Business rule validation
+- Late-arriving data handled safely
+- Enforced with **dbt tests**
 
-🐍 SQL & Snowpark
+---
 
-📊 Streamlit
+### 🥇 Gold / CURATED Layer
+- Analytics-ready **star schema**
+- Optimized for BI & dashboards
+- Fact & dimension tables
 
-Snowflake Native Streamlit
+---
 
-Streamlit Community Cloud (Web)
+## 📐 Data Model (Star Schema)
 
-📦 Altair
-
-☁ Cloud Storage (Parquet files)
-
-📂 Dataset
-
-NYC Yellow Taxi Trip Records
-
-Vendor information
-
-Pickup & drop-off timestamps
-
-Locations
-
-Trip distance
-
-Fare, tips, surcharges
-
-Payment types
-
-Passenger count
-
-Dataset is ingested in Parquet format to ensure performance and schema consistency.
-
-🎯 Key Business Objectives
-
-📈 Track trip volume and revenue trends
-
-⏱ Analyze trip duration & peak hours
-
-💳 Understand payment behavior
-
-👥 Study passenger behavior
-
-💰 Identify high-value trips
-
-📏 Analyze distance vs revenue relationship
-
-🧾 Ensure historical accuracy using SCD-2
-
-🧱 Medallion Architecture
-🥉 Bronze / RAW Layer
-
-Raw taxi data ingested as-is
-
-Stored in Snowflake RAW tables
-
-No transformations
-
-Source of truth
-
-Ingestion via:
-
-Snowpipe
-
-COPY INTO
-
-🥈 Silver / CLEANED Layer
-
-Built using dbt incremental models
-
-Key transformations:
-
-Deduplication
-
-Timestamp parsing
-
-Null handling (forward & backward fill)
-
-Business rule validation
-
-Late-arriving data handled with rolling windows
-
-Enforced with dbt tests
-
-🥇 Gold / CURATED Layer
-
-Analytics-ready star schema
-
-Fact & Dimension tables
-
-Optimized for BI & dashboards
-
-📐 Data Model (Star Schema)
-Fact Table
-
-FACT_TAXI_TRIPS
-
-One row per taxi trip
-
-Measures:
-
-total_amount
-
-trip_distance
-
-passenger_count
-
-tip_amount
-
-trip_duration
-
-Dimensions
-
-DIM_VENDOR
-
-DIM_LOCATION (SCD Type-2)
-
-DIM_PAYMENT
-
-🔄 Slowly Changing Dimensions (SCD-2)
-
-Implemented on Location Dimension
-
-Tracks historical changes using:
-
-effective_start_date
-
-effective_end_date
-
-is_current
-
-Fact table joins dimensions using:
-
-Business key
-
-Event timestamp (pickup time)
-
-✅ Ensures historical reporting accuracy
-
-🔄 Orchestration & Automation
-Automation Flow
-
-Snowpipe
-
-Auto-ingests new files
-
-Streams
-
-Track incremental changes
-
-Tasks
-
-Trigger Silver & Gold transformations
-
-dbt
-
-Incremental models
-
-SCD-2 logic
-
-Data tests
-
-Pipeline is event-driven & cost-efficient.
-
-📊 Streamlit Dashboards
-Dashboards Included
-📌 Executive KPIs
-
-Total Trips
-
-Total Revenue
-
-Average Fare
-
-Average Trip Duration
-
-📈 Trends & Patterns
-
-Trips & Revenue over time
-
-Trips by pickup hour
-
-Revenue vs distance
-
-👥 Customer Behavior
-
-Passenger count distribution
-
-Tip analysis
-
-Payment type adoption
-
-💼 Operational Insights
-
-Vendor performance
-
-High-value trips (outliers)
-
-Trip duration distribution
+![Star Schema](images/star_schema.png)
+
+### ⭐ Fact Table
+**FACT_TAXI_TRIPS**
+- One row per taxi trip
+- Measures:
+  - `total_amount`
+  - `trip_distance`
+  - `passenger_count`
+  - `tip_amount`
+  - `trip_duration`
+
+### 📘 Dimensions
+- **DIM_VENDOR**
+- **DIM_PAYMENT**
+- **DIM_LOCATION** *(SCD Type-2)*
+
+---
+
+## 🔄 Slowly Changing Dimension (SCD-2)
+
+- Implemented on **Location Dimension**
+- Tracks historical changes using:
+  - `effective_start_date`
+  - `effective_end_date`
+  - `is_current`
+- Fact table joins SCD-2 dimension using:
+  - Business key
+  - Event timestamp (pickup time)
+
+✅ Ensures **historically accurate reporting**
+
+---
+
+## 🔄 Orchestration & Automation
+
+![Streams & Tasks](images/streams_tasks.png)
+
+- **Snowpipe** → Auto-ingestion
+- **Streams** → Track incremental changes
+- **Tasks** → Trigger Silver & Gold transformations
+- **dbt** → Incremental models & tests
+
+Pipeline is **event-driven, automated, and cost-efficient**.
+
+---
+
+## 📊 Streamlit Dashboards
+
+<img width="700" height="400" alt="image" src="https://github.com/user-attachments/assets/133fb12b-77a9-43af-a1db-734b17daf7d0" />
+<img width="700" height="400" alt="image" src="https://github.com/user-attachments/assets/a21b096d-98a8-4005-a531-4db0143cc3cc" />
+<img width="700" height="400" alt="image" src="https://github.com/user-attachments/assets/8e6439c7-c66d-44db-8067-21209b929c4b" />
+<img width="700" height="400" alt="image" src="https://github.com/user-attachments/assets/466c0775-8a1b-4ecc-ad15-ae149113155d" />
+<img width="700" height="400" alt="image" src="https://github.com/user-attachments/assets/2cb6397d-9958-451c-83f6-4ac3eeb0e994" />
+<img width="700" height="400" alt="image" src="https://github.com/user-attachments/assets/d117aa76-5752-4422-af70-b233b06965de" />
+<img width="700" height="400" alt="image" src="https://github.com/user-attachments/assets/1928509e-ffd9-4459-9080-5eec6818e465" />
+<img width="700" height="400" alt="image" src="https://github.com/user-attachments/assets/0fc2fd22-9885-4385-986c-41be60c6f9a6" />
+
+
+### Dashboards Included
+
+### 📌 Executive KPIs
+- Total Trips
+- Total Revenue
+- Average Fare
+- Average Trip Duration
+
+### 📈 Trends & Patterns
+- Trips & revenue over time
+- Trips by pickup hour
+- Revenue vs distance
+
+### 👥 Customer Behavior
+- Passenger count distribution
+- Tip analysis
+- Payment type adoption
+
+### 🚨 Operational Insights
+- Vendor performance
+- High-value trips
+- Trip duration distribution
 
 Dashboards are available in:
+- **Snowflake Native Streamlit**
+- **Streamlit Community Cloud (Web)**
 
-Snowflake Native Streamlit (internal analytics)
+---
 
-Streamlit Web (Cloud) for portfolio & demos
+## 🚀 How to Run the Project
 
-🚀 How to Get Started
-
-Clone the repository
-
-Set up Snowflake database & schema
-
-Configure Snowpipe & stages
-
-Run dbt models:
-
+```bash
+# Run dbt models
 dbt run
 dbt test
 
-
-Launch Streamlit app:
-
+# Launch Streamlit app
 streamlit run app.py
-
-
-Explore dashboards
-
-🧠 Key Learnings & Highlights
-
-Built a production-grade medallion architecture
-
-Implemented SCD-2 correctly with fact awareness
-
-Designed incremental & late-data safe pipelines
-
-Automated ingestion with Streams & Tasks
-
-Delivered business-focused dashboards
-
-Deployed both internal & public Streamlit apps
